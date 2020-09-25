@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <context id="context2">
+  	<property name="beginningDelimiter" value="`"/>
+  	<property name="endingDelimiter" value="`"/>
+  	<property name="autoDelimitKeywords" value="true"/>
+    <jdbcConnection connectionURL="jdbc:mysql://47.96.28.95:3306/project_manage?useUnicode=true&amp;characterEncoding=utf-8&amp;nullCatalogMeansCurrent=true" driverClass="com.mysql.cj.jdbc.Driver" password="Hykj0202" userId="root" />
+    <javaModelGenerator targetPackage="com.echair.project_manage.dao.model" targetProject="src/main/java" />
+    <sqlMapGenerator targetPackage="com.echair.project_manage.dao.mapper" targetProject="src/main/java" />
+    <javaClientGenerator targetPackage="com.echair.project_manage.dao.mapper" type="XMLMAPPER" targetProject="src/main/java"/>
+
+      <table tableName="version_alpha" domainObjectName="Alpha"
+             enableCountByExample="true"
+             enableDeleteByExample="true"
+             enableSelectByExample="true"
+             enableUpdateByExample="true">
+          <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      </table>
+      <table tableName="version_beta" domainObjectName="Beta"
+             enableCountByExample="true"
+             enableDeleteByExample="true"
+             enableSelectByExample="true"
+             enableUpdateByExample="true">
+          <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      </table>
+      <table tableName="version_master" domainObjectName="Master"
+             enableCountByExample="true"
+             enableDeleteByExample="true"
+             enableSelectByExample="true"
+             enableUpdateByExample="true">
+          <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      </table>
+  </context>
+</generatorConfiguration>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<!-- 输出到控制台 ConsoleAppender -->
+	<appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- layout 展示格式 -->
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern> %d{yyyy-MM-dd HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<!-- 只需要info级别日志，因为error日志的级别比info高，我们需要过滤error,LevelFilter只过滤当前level -->
+	<appender name="fileInfoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<!-- 匹配到error就禁止打印 -->
+			<onMatch>DENY</onMatch>
+			<!-- 没有匹配到error就打印 -->
+			<onMismatch>ACCEPT</onMismatch>
+		</filter>
+		<!-- 如果同时有File和FileNamePattern，File存放当天的日志，隔天会改名为FileNamePattern的名字 -->
+		<!-- <File>c://log/info.app.log</File> -->
+		<!-- 滚动策略 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- 文件路径 -->
+			<FileNamePattern>log/info.%d{yyyy-MM-dd}.log</FileNamePattern>
+			<!-- 只保留90天 -->
+			<maxHistory>90</maxHistory>
+			<!-- 日志大小上限 -->
+			<totalSizeCap>5GB</totalSizeCap>
+		</rollingPolicy>
+		<!-- 文件日志输出格式 -->
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}---%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 获取error日志 -->
+	<appender name="fileErrorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- ThresholdFilter，临界值过滤，过滤error以及以上级别的日志 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<!-- 滚动策略 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- 文件路径 -->
+			<FileNamePattern>log/error.%d{yyyy-MM-dd}.log</FileNamePattern>
+			<!-- 只保留90天 -->
+			<maxHistory>90</maxHistory>
+			<!-- 日志大小上限 -->
+			<totalSizeCap>1GB</totalSizeCap>
+		</rollingPolicy>
+		<!-- 文件日志输出格式 -->
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}---%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 指定root级别为info -->
+	<root level="INFO">
+		<!-- appender 将会添加到这里 -->
+		<appender-ref ref="consoleLog" />
+		<appender-ref ref="fileInfoLog" />
+		<appender-ref ref="fileErrorLog" />
+	</root>
+</configuration>
